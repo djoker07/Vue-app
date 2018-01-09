@@ -1,4 +1,4 @@
-# my-app
+# y
 
 > A Vue.js project
 
