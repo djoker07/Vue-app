@@ -1,24 +1,36 @@
 <template>
-  <div id="signupPage" class="">
-    <h3>Sign In</h3>
-    <input type="text" placeholder="Email" required><br>
-    <input type="text" placeholder="Password" required><br>
-    <button>Login</button>
-    <span>Go back to Login</span>
+  <div id="createAccount" class="">
+    <h3>Create and account</h3>
+    <input v-model='email' type="text" placeholder="Email" required><br>
+    <input v-model='password' type="password" placeholder="Password" required><br>
+    <button v-on:click='signUp'>Create Account</button>
+    <span>Go back to <router-link to='/'> Login </router-link> </span>
   </div>
 </template>
 
 <script>
 
+import firebase from 'firebase'
+
 export default {
-  name: 'singupPage',
+  name: 'createAccount',
   data () {
     return {
-
+        email:'',
+        password:''
     }
   },
   methods: {
- 
+    signUp: function() {
+        firebase.auth().createUserWithEmailAndPassword(this.email, this.password).then(
+            (user) => {
+                this.$router.replace('todo')
+            },
+            (err) => {
+                alert('Oops. ' + err.message)
+            }
+        );
+    }
   }
 }
 </script>
@@ -41,14 +53,11 @@ button {
     cursor: pointer;
 }
 
-p {
-    margin-top: 40px;
-    font-size: 13px;
+span {
+    display: block;
+    margin-top: 20px;
+    font-size: 11px;
 }
 
-p a {
-    text-decoration: underline;
-    cursor: pointer;
-}
 
 </style>

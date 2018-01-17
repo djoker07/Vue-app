@@ -2,18 +2,22 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import VueFire from 'vuefire'
 import App from './App'
-import Routes from './routes'
+import Router from './routes'
+import firebase from 'firebase'
 
 Vue.use(VueFire);
 Vue.use(VueRouter);
 
-const router = new VueRouter({
-  routes:Routes,
-  mode:'history'
+let app;
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if(!app) {
+    app = new Vue({
+      el: '#app',
+      render: h => h(App),
+      router: Router,
+      user: this.user
+    })
+  }
 });
 
-new Vue({
-  el: '#app',
-  render: h => h(App),
-  router: router
-})
