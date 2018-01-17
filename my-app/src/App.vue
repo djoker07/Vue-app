@@ -1,21 +1,26 @@
 <template>
   <div id="app">
     <h1>{{msg}}</h1>
-    <todo-app></todo-app>
+    <!-- <todo-app v-if="loggedIn"></todo-app>
+    <login v-else></login> -->
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import Todo from "./components/todo"
+import Login from "./components/login"
 
 export default {
   name: 'app',
   components: {
-    'todo-app': Todo
+    'todo-app': Todo,
+    'login': Login,
   },
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
+      loggedIn: false,
     }
   }
 }
